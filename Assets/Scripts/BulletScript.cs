@@ -32,7 +32,7 @@ public class BulletScript : MonoBehaviour
             Boss.TakeDamage(1);
             Destroy(gameObject);
         }
-        EnemyScript Wall = HitScan.GetComponent<EnemyScript>();
+        EarthScript Wall = HitScan.GetComponent<EarthScript>();
         if (Wall != null)
         {
             Destroy(gameObject);

@@ -41,10 +41,10 @@ public class BossScript : MonoBehaviour
 
     void Start()
     {
+       
         enemyPosition = gameObject.transform.position;
         target = enemyPosition + GetNextTarget(enemyState);
 
-        
 
     }
 
@@ -52,7 +52,7 @@ public class BossScript : MonoBehaviour
 
     void Update()
     {
-
+        
         transform.position = Vector3.MoveTowards(transform.position, target, EnemyVelocity * Time.timeScale);
         if (Mathf.Approximately((transform.position - target).sqrMagnitude, 0f))
         {

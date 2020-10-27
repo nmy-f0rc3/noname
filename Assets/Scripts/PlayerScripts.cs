@@ -10,7 +10,7 @@ public class PlayerScripts : MonoBehaviour
     public int PlayerPoints;
     public GameObject Player;
     public Canvas MainMenu;
-
+    public Canvas Pauses;
     public float Movement
     {
         get { return MovesLeft ? -1f : MovesRight ? 1f : 0f; }
@@ -66,6 +66,12 @@ public class PlayerScripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Pauses == true)
+        {
+            Debug.Log("Time-test");
+            Time.timeScale = 0;
+        }
+
         float newX = playerPosition.x + Movement * PlayerVelocity;
 
         newX = Mathf.Clamp(newX, -Boundary, Boundary);

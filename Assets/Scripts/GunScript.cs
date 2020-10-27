@@ -19,7 +19,7 @@ public class GunScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             cooldown = true;            
             Fire();
-            Invoke("ResetCooldown", 1.0f);
+            Invoke("ResetCooldown", 0.1f);
         }
 
     }

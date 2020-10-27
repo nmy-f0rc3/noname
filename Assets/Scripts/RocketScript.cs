@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class RocketScript : MonoBehaviour
 {
-    public float RocketSpeed;
     public Rigidbody RocketBody;
 
     // Start is called before the first frame update
     void Start()
     {
-        RocketBody.velocity = transform.forward * RocketSpeed;
+
     }
 
 

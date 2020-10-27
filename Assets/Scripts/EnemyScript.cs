@@ -6,11 +6,31 @@ public class EnemyScript : MonoBehaviour
 {
     public int Health;
     public int points;
-    public float EnemyVelocity;
+    public GameObject EnemyShip;
+    public float EnemyVelocity = 0.01f;
     public PlayerScripts Player { get; set; }
     private Vector3 target;
     private Vector3 enemyPosition;
 
+    private MeshRenderer mRenderer;
+    private Transform myTransform;
+
+    private void Awake()
+    {
+        mRenderer = GetComponent<MeshRenderer>();
+        myTransform = transform;
+    }
+
+    public void Init(float x, float y, float z, Color color, State state, int HP, int Point, PlayerScripts player)
+    {
+        //var sodomit = Instantiate(EnemyShip, new Vector3(x, y, z), Quaternion.identity);
+        Player = player;
+        myTransform.position = new Vector3(x, y, z);
+        mRenderer.material.SetColor("_Color", color);
+        enemyState = state;
+        Health = HP;
+        points = Point;
+    }
 
     public enum State
     {
@@ -35,7 +55,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         Health -= Damage;
-        if (Health == 0)
+        if (Health <= 0)
         {
             Player.AddPoints(points);
             //GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
@@ -47,7 +67,8 @@ public class EnemyScript : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        Debug.LogError("ME DEAD!");
+        gameObject.SetActive(false);
     }
 
     public State enemyState = State.Fly;
@@ -56,6 +77,7 @@ public class EnemyScript : MonoBehaviour
     {
         enemyPosition = gameObject.transform.position;
         target = enemyPosition + GetNextTarget(enemyState);
+        
 
     }
 
@@ -69,7 +91,14 @@ public class EnemyScript : MonoBehaviour
         {
             SwitchState(enemyState);
         }
-        
+        if (enemyState == State.Fly)
+        {
+            EnemyVelocity = 0.035f;
+        }
+        if (enemyState != State.Fly)
+        {
+            EnemyVelocity = 0.01f;
+        }
     }
 
     private Vector3 GetNextTarget(State state)
